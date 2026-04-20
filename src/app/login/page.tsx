@@ -5,8 +5,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Zap, Loader2 } from "lucide-react"
-import { signInWithEmailAndPassword } from "firebase/auth"
-import { auth } from "@/lib/firebase/firebase"
+import { initFirebase, signInWithEmailAndPassword } from "@/lib/firebase/firebase";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("")
@@ -21,6 +20,9 @@ export default function LoginPage() {
     setIsLoading(true);
 
     try {
+      const { auth } = initFirebase();
+      if (!auth) throw new Error("Authentication not initialized.");
+      
       await signInWithEmailAndPassword(auth, email, password);
       router.push("/dashboard");
     } catch (err: any) {

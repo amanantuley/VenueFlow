@@ -5,9 +5,7 @@ import { motion } from "framer-motion"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { ArrowLeft, Sparkles, Loader2 } from "lucide-react"
-import { createUserWithEmailAndPassword } from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
-import { auth, db } from "@/lib/firebase/firebase"
+import { initFirebase, createUserWithEmailAndPassword, doc, setDoc } from "@/lib/firebase/firebase";
 
 export default function SignupPage() {
   const [firstName, setFirstName] = useState("")
@@ -24,6 +22,9 @@ export default function SignupPage() {
     setIsLoading(true);
 
     try {
+      const { auth, db } = initFirebase();
+      if (!auth || !db) throw new Error("Firebase not initialized.");
+
       // 1. Create the user in Firebase Auth
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
