@@ -16,14 +16,13 @@ export const initFirebase = () => {
 
   if (!getApps().length) {
     const firebaseConfig = {
-      apiKey: "AIzaSyCKHjENAX2w8JDIWThDiQCaNizJqZvtTe0",
-      authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
-      projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
-      storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
-      messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
-      appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
-    };
-
+  apiKey: "AIzaSyCKHjENAX2w8JDIWThDiQCaNizJqZvtTe0",
+  authDomain: "venueflow-f7093.firebaseapp.com",
+  projectId: "venueflow-f7093",
+  storageBucket: "venueflow-f7093.appspot.com",
+  messagingSenderId: "1035203955615",
+  appId: "1:1035203955615:web:74697164ebd0f4e1238baa",
+};
     app = initializeApp(firebaseConfig);
   } else {
     app = getApp();
