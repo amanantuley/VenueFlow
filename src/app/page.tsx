@@ -1,229 +1,201 @@
 "use client"
 
-import { useState } from "react"
-import { Bell, Trophy, MapPin, Zap, TrendingUp, ChevronRight, Star, ArrowUpRight } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { BottomNav } from "@/components/bottom-nav"
-import { VenueMap } from "@/components/venue-map"
-import { QueuePredictor } from "@/components/queue-predictor"
-import { ItineraryPlanner } from "@/components/itinerary-planner"
-import { ConcessionOrdering } from "@/components/concession-ordering"
-import { EmergencyGuide } from "@/components/emergency-guide"
-import { VenueChatbot } from "@/components/venue-chatbot"
+import { motion } from "framer-motion"
+import Link from "next/link"
 import Image from "next/image"
+import { ArrowRight, Zap, Shield, Sparkles, MapPin, Ticket, Cpu, BarChart3, CloudLightning } from "lucide-react"
+import { Footer } from "@/components/footer"
 
-export default function Home() {
-  const [activeTab, setActiveTab] = useState("home")
-
-  return (
-    <div className="min-h-screen bg-background pb-24 md:pb-0 font-body">
-      {/* Premium Header */}
-      <header className="sticky top-0 z-40 w-full bg-white/70 backdrop-blur-xl border-b border-border/40 px-6 py-4">
-        <div className="max-w-screen-xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3 group cursor-pointer" onClick={() => setActiveTab('home')}>
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center shadow-lg shadow-primary/20 group-hover:scale-110 transition-transform">
-              <Trophy className="h-6 w-6 text-white" />
-            </div>
-            <div>
-              <h1 className="text-xl font-black tracking-tight text-primary leading-none">VenueFlow</h1>
-              <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest mt-1">Smart Stadium Experience</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:bg-muted/50 transition-colors">
-              <Bell className="h-5 w-5" />
-              <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-accent rounded-full border-2 border-white ring-2 ring-accent/20 animate-pulse" />
-            </Button>
-            <div className="flex items-center gap-2 pl-2 border-l border-border/50">
-              <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-primary/10 to-accent/10 border border-border flex items-center justify-center">
-                <span className="text-xs font-black text-primary">JD</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="max-w-screen-xl mx-auto p-6 md:pt-10 md:grid md:grid-cols-12 md:gap-10">
-        {/* Navigation Sidebar for Desktop (Premium Minimalism) */}
-        <div className="hidden md:block md:col-span-3 space-y-6">
-          <nav className="space-y-2">
-            {[
-              { id: "home", label: "Dashboard", icon: Zap },
-              { id: "map", label: "Venue Map", icon: MapPin },
-              { id: "order", label: "Concessions", icon: TrendingUp },
-              { id: "plan", label: "My Itinerary", icon: Star },
-              { id: "safety", label: "Safety Center", icon: Bell },
-            ].map((item) => (
-              <Button
-                key={item.id}
-                variant={activeTab === item.id ? "default" : "ghost"}
-                className={cn(
-                  "w-full justify-start gap-3 h-14 rounded-2xl transition-all duration-300",
-                  activeTab === item.id 
-                    ? "bg-primary text-white shadow-xl shadow-primary/20 scale-[1.02]" 
-                    : "hover:bg-muted/50 text-muted-foreground font-semibold"
-                )}
-                onClick={() => setActiveTab(item.id)}
-              >
-                <item.icon className={cn("h-5 w-5", activeTab === item.id ? "text-white" : "text-primary")} />
-                {item.label}
-              </Button>
-            ))}
-          </nav>
-          
-          <Card className="bg-muted/20 border-dashed border-2 border-border p-4 rounded-3xl">
-            <CardContent className="p-0 space-y-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center">
-                  <Star className="h-5 w-5 text-accent fill-accent" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold">Premium Seat</p>
-                  <p className="text-[10px] text-muted-foreground">Section 105, Row 12</p>
-                </div>
-              </div>
-              <Button variant="outline" className="w-full text-xs rounded-xl h-10 border-accent/20 text-accent hover:bg-accent hover:text-white">
-                View Perks
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-
-        {/* Dynamic Content Area */}
-        <div className="md:col-span-9 space-y-10 animate-in fade-in slide-in-from-bottom-5 duration-500">
-          {activeTab === "home" && (
-            <div className="space-y-10">
-              {/* Ultra-Modern Hero Card */}
-              <Card className="relative group overflow-hidden border-none shadow-2xl rounded-[2.5rem] bg-black text-white aspect-[21/9] flex items-center">
-                <Image 
-                  src="https://picsum.photos/seed/stadium/1200/600" 
-                  alt="Stadium" 
-                  fill 
-                  className="object-cover opacity-60 scale-105 group-hover:scale-100 transition-transform duration-[3s]"
-                  priority
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent" />
-                <CardContent className="relative p-8 md:p-12 w-full flex flex-col md:flex-row justify-between items-end gap-6">
-                  <div className="space-y-4">
-                    <div className="flex gap-2">
-                      <Badge className="bg-white/20 text-white backdrop-blur-md border-none px-3 py-1 font-bold text-[10px] uppercase tracking-wider">2nd Half • 54'</Badge>
-                      <Badge className="bg-accent text-accent-foreground border-none px-3 py-1 font-bold text-[10px] uppercase tracking-wider">Live Event</Badge>
-                    </div>
-                    <div>
-                      <h2 className="text-4xl md:text-6xl font-black mb-2 tracking-tight">CITY vs UNITED</h2>
-                      <p className="text-white/60 font-medium flex items-center gap-2 text-lg">
-                        <MapPin className="h-5 w-5 text-accent" /> Grand Stadium, Central Park
-                      </p>
-                    </div>
-                    <div className="flex gap-4 pt-4">
-                      <Button size="lg" className="bg-white text-primary hover:bg-white/90 rounded-2xl font-black px-8 shadow-xl" onClick={() => setActiveTab('map')}>
-                        Live Map
-                      </Button>
-                      <Button size="lg" variant="outline" className="border-white/30 text-white hover:bg-white/10 rounded-2xl font-black px-8">
-                        Match Info
-                      </Button>
-                    </div>
-                  </div>
-                  <div className="text-right pb-2">
-                    <p className="text-[12px] uppercase font-black text-white/40 tracking-[0.2em] mb-1">Scoreboard</p>
-                    <div className="flex items-center gap-6">
-                      <div className="flex flex-col items-center">
-                        <span className="text-5xl font-black">2</span>
-                        <span className="text-[10px] font-bold text-white/40">MCI</span>
-                      </div>
-                      <div className="h-8 w-px bg-white/20" />
-                      <div className="flex flex-col items-center">
-                        <span className="text-5xl font-black text-accent">1</span>
-                        <span className="text-[10px] font-bold text-white/40">MUN</span>
-                      </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Enhanced Quick Actions */}
-              <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                {[
-                  { id: 'order', icon: TrendingUp, label: 'Order Now', sub: 'Skip all lines', color: 'accent' },
-                  { id: 'plan', icon: Zap, label: 'Smart Plan', sub: 'AI Concierge', color: 'primary' },
-                  { id: 'map', icon: MapPin, label: 'Navigation', sub: 'Find anything', color: 'primary' },
-                  { id: 'safety', icon: Bell, label: 'Assistance', sub: '24/7 Support', color: 'accent' },
-                ].map((action) => (
-                  <Card 
-                    key={action.id}
-                    className="group border-border/40 hover:border-primary/20 hover:shadow-xl hover:-translate-y-1 transition-all cursor-pointer rounded-3xl overflow-hidden bg-card"
-                    onClick={() => setActiveTab(action.id)}
-                  >
-                    <CardContent className="p-6 flex flex-col items-center text-center gap-4">
-                      <div className={cn(
-                        "w-14 h-14 rounded-2xl flex items-center justify-center transition-colors shadow-inner",
-                        action.color === 'accent' ? "bg-accent/10 text-accent group-hover:bg-accent group-hover:text-white" : "bg-primary/10 text-primary group-hover:bg-primary group-hover:text-white"
-                      )}>
-                        <action.icon className="h-7 w-7" />
-                      </div>
-                      <div className="space-y-1">
-                        <span className="text-base font-black block">{action.label}</span>
-                        <span className="text-xs text-muted-foreground font-medium uppercase tracking-tighter opacity-60">{action.sub}</span>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-
-              {/* Contextual Intelligence Section */}
-              <div className="grid lg:grid-cols-2 gap-10 pt-4">
-                <div className="space-y-6">
-                  <div className="flex justify-between items-center">
-                    <h3 className="font-black text-2xl tracking-tight">Intelligent Alerts</h3>
-                    <Button variant="link" className="text-sm font-bold text-primary group">
-                      Explore All <ArrowUpRight className="ml-1 h-4 w-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                    </Button>
-                  </div>
-                  <div className="space-y-4">
-                    {[
-                      { title: "Gate Optimized", desc: "Gate 4 flow is high. Gate 2 redirected for ease.", time: "2m ago", icon: MapPin },
-                      { title: "Half-Time Flash Sale", desc: "50% off beverages at Section B for 15 mins.", time: "15m ago", icon: TrendingUp },
-                    ].map((alert, i) => (
-                      <div key={i} className="group flex gap-5 p-5 bg-card rounded-[2rem] border border-border/50 hover:border-primary/20 hover:shadow-lg transition-all items-center">
-                        <div className="w-12 h-12 rounded-2xl bg-muted shrink-0 flex items-center justify-center group-hover:bg-primary/10 group-hover:text-primary transition-colors">
-                          <alert.icon className="h-6 w-6" />
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex justify-between items-center mb-1">
-                            <h4 className="font-black text-base">{alert.title}</h4>
-                            <span className="text-[10px] font-bold text-muted-foreground uppercase">{alert.time}</span>
-                          </div>
-                          <p className="text-sm text-muted-foreground leading-relaxed line-clamp-1">{alert.desc}</p>
-                        </div>
-                        <ChevronRight className="h-5 w-5 text-muted-foreground/30 group-hover:text-primary transition-colors" />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div className="space-y-6">
-                  <h3 className="font-black text-2xl tracking-tight">Wait Analytics</h3>
-                  <QueuePredictor />
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeTab === "map" && <VenueMap />}
-          {activeTab === "order" && <ConcessionOrdering />}
-          {activeTab === "plan" && <ItineraryPlanner />}
-          {activeTab === "safety" && <EmergencyGuide />}
-        </div>
-      </main>
-
-      <VenueChatbot />
-      <BottomNav activeTab={activeTab} setActiveTab={setActiveTab} />
-    </div>
-  )
+/**
+ * Reusable Feature Component for code efficiency and DRY principles.
+ * Includes explicit TypeScript types for props.
+ */
+interface FeatureCardProps {
+  icon: React.ElementType;
+  title: string;
+  desc: string;
+  colorClass: string;
+  gradientClass: string;
+  delay: number;
 }
 
-function cn(...inputs: any[]) {
-  return inputs.filter(Boolean).join(" ")
+const FeatureCard = ({ icon: Icon, title, desc, colorClass, gradientClass, delay }: FeatureCardProps) => (
+  <motion.article 
+    initial={{ opacity: 0, y: 40 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, margin: "-100px" }}
+    transition={{ duration: 0.6, delay }}
+    className={`group relative overflow-hidden rounded-[2rem] bg-card border border-white/5 p-8 hover:${colorClass} transition-colors flex flex-col h-full`}
+    data-testid={`feature-card-${title.toLowerCase().replace(/\s+/g, '-')}`}
+  >
+    <div className={`absolute inset-0 bg-gradient-to-br ${gradientClass} to-transparent opacity-0 group-hover:opacity-100 transition-opacity`} aria-hidden="true" />
+    <Icon className={`h-10 w-10 ${colorClass.replace('border-', 'text-')} mb-6`} aria-hidden="true" />
+    <h3 className="text-2xl font-headline font-bold mb-3">{title}</h3>
+    <p className="text-muted-foreground leading-relaxed">{desc}</p>
+  </motion.article>
+);
+
+export default function LandingPage() {
+  return (
+    <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden selection:bg-primary/30">
+      
+      {/* Background Decorators - Semantic presentation layer */}
+      <div className="fixed inset-0 z-0 pointer-events-none" aria-hidden="true">
+        <div className="absolute top-[-10%] left-[-10%] w-[40vw] h-[40vw] rounded-full bg-primary/10 blur-[120px] mix-blend-screen animate-pulse" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[40vw] h-[40vw] rounded-full bg-secondary/10 blur-[120px] mix-blend-screen animate-slow-zoom" />
+      </div>
+
+      {/* Header - Accessible Navigation */}
+      <header className="relative z-20 w-full" data-testid="global-header">
+        <nav className="flex items-center justify-between px-6 py-4 md:px-12 md:py-6 max-w-7xl mx-auto" aria-label="Main Navigation">
+          <Link href="/" className="flex items-center gap-2" aria-label="Navigate to Home">
+            <div className="w-8 h-8 rounded-lg bg-gradient-to-tr from-primary to-secondary flex items-center justify-center shadow-lg shadow-primary/20">
+              <Zap className="text-black h-5 w-5" aria-hidden="true" />
+            </div>
+            <span className="font-headline font-black text-2xl tracking-tighter">VenueFlow</span>
+          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/login" className="text-sm font-semibold hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-md px-2 py-1">
+              Log in
+            </Link>
+            <Link href="/signup" data-testid="header-nav-cta" className="px-5 py-2.5 rounded-full bg-white text-black font-bold text-sm hover:scale-105 transition-transform shadow-[0_0_20px_rgba(255,255,255,0.3)] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-black focus:ring-white">
+              Get Started
+            </Link>
+          </div>
+        </nav>
+      </header>
+
+      {/* Main Content Area */}
+      <main className="flex-1 relative z-10 w-full" id="main-content">
+        
+        {/* Section: Hero */}
+        <section className="max-w-7xl mx-auto px-6 md:px-12 pt-16 md:pt-28 pb-20" aria-label="Introduction">
+          <div className="max-w-4xl">
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8"
+              role="status"
+            >
+              <Sparkles className="h-4 w-4 text-primary" aria-hidden="true" />
+              <span className="text-xs font-semibold uppercase tracking-wider text-white/80">The Future of Live Events</span>
+            </motion.div>
+            
+            <motion.h1 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.1 }}
+              className="text-6xl md:text-8xl md:leading-[0.95] font-headline font-black tracking-tight mb-8 text-white"
+            >
+              Your Ultimate <br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary via-secondary to-accent">Stadium </span>
+              Experience.
+            </motion.h1>
+            
+            <motion.p 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.2 }}
+              className="text-lg md:text-2xl text-muted-foreground max-w-2xl font-body leading-relaxed mb-10"
+            >
+              Navigate crowds, skip the concession lines, and get real-time game analytics directly from your seat. Powered by enterprise-grade AI infrastructure.
+            </motion.p>
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="flex flex-col sm:flex-row gap-4"
+            >
+              <Link href="/dashboard" data-testid="hero-primary-cta" className="group flex items-center justify-center gap-2 px-8 py-4 rounded-full bg-gradient-to-r from-primary to-accent text-black font-black text-lg hover:shadow-[0_0_40px_rgba(0,255,255,0.4)] transition-all hover:-translate-y-1 focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 focus:ring-offset-black">
+                Enter Dashboard
+                <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" aria-hidden="true" />
+              </Link>
+              <Link href="/signup" data-testid="hero-secondary-cta" className="flex items-center justify-center px-8 py-4 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 backdrop-blur-md font-bold text-lg transition-colors focus:outline-none focus:ring-2 focus:ring-white">
+                 Create Free Account
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* Section: Social Proof & Integrations / Google Services */}
+        <section className="max-w-7xl mx-auto px-6 md:px-12 py-12 border-y border-white/5 bg-black/20" aria-label="Technology Partners">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 opacity-60 hover:opacity-100 transition-opacity duration-500">
+            <span className="text-sm font-bold uppercase tracking-[0.2em] text-center w-full md:w-auto">Engineered With</span>
+            <div className="flex items-center gap-8 md:gap-16 flex-wrap justify-center">
+              <div className="flex items-center gap-2"><CloudLightning className="h-6 w-6"/> <span className="font-bold text-lg">Google Cloud</span></div>
+              <div className="flex items-center gap-2"><Cpu className="h-6 w-6"/> <span className="font-bold text-lg">Firebase Auth</span></div>
+              <div className="flex items-center gap-2"><Sparkles className="h-6 w-6"/> <span className="font-bold text-lg">Gemini AI</span></div>
+            </div>
+          </div>
+        </section>
+
+        {/* Section: Core Features Grid */}
+        <section className="max-w-7xl mx-auto px-6 md:px-12 py-24" aria-labelledby="features-heading">
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-16 max-w-2xl"
+          >
+            <h2 id="features-heading" className="text-4xl md:text-5xl font-headline font-bold mb-4">Unmatched Capabilities</h2>
+            <p className="text-xl text-muted-foreground">Built to handle stadiums scaling to 100,000+ fans with zero downtime.</p>
+          </motion.div>
+
+          {/* Grid Layout replacing the legacy Bento for a more robust Enterprise look */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <FeatureCard 
+              icon={MapPin}
+              title="Predictive Wayfinding"
+              desc="Real-time AR mapping that re-routes you based on bathroom lines and active crowd blockages."
+              colorClass="border-primary"
+              gradientClass="from-primary/10"
+              delay={0}
+            />
+            <FeatureCard 
+              icon={BarChart3}
+              title="Real-Time Telemetry"
+              desc="Live wait-time estimations calculated by our proprietary machine-learning inference engines."
+              colorClass="border-secondary"
+              gradientClass="from-secondary/10"
+              delay={0.1}
+            />
+            <FeatureCard 
+              icon={Ticket}
+              title="Instant Ordering"
+              desc="Deep integrations with stadium POS systems to let you order without leaving your seat."
+              colorClass="border-accent"
+              gradientClass="from-accent/10"
+              delay={0.2}
+            />
+          </div>
+        </section>
+
+        {/* Section: Call To Action (Bottom) */}
+        <section className="mb-24 mt-12 max-w-5xl mx-auto px-6" aria-label="Final Call to Action">
+           <motion.div 
+             initial={{ opacity: 0, scale: 0.95 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             viewport={{ once: true }}
+             className="rounded-[3rem] bg-gradient-to-tr from-white/5 to-white/10 border border-white/10 p-12 md:p-20 text-center relative overflow-hidden"
+           >
+             <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/20 via-black/0 to-black/0 pointer-events-none" />
+             <div className="relative z-10">
+               <h2 className="text-4xl md:text-6xl font-headline font-black mb-6">Ready to upgrade your game day?</h2>
+               <p className="text-xl text-muted-foreground mb-10 max-w-2xl mx-auto">Join thousands of fans already transforming how they experience live entertainment globally.</p>
+               <Link href="/signup" data-testid="footer-cta" className="inline-flex items-center justify-center gap-2 px-10 py-5 rounded-full bg-white text-black font-black text-xl hover:scale-105 transition-transform focus:outline-none focus:ring-4 focus:ring-primary/50">
+                 Create Your Account <ArrowRight className="h-6 w-6" aria-hidden="true" />
+               </Link>
+             </div>
+           </motion.div>
+        </section>
+        
+      </main>
+
+      {/* Semantic Footer Component */}
+      <Footer />
+      
+    </div>
+  )
 }
