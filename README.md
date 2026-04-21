@@ -33,7 +33,6 @@ VenueFlow is a high-performance, AI-integrated stadium companion designed to opt
 3. **Install dependencies**:
    ```bash
    npm install
-   ```
 
 4. **Environment Setup**:
    Create a `.env` file with your Google AI API key:
