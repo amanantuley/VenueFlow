@@ -28,7 +28,6 @@ VenueFlow is a high-performance, AI-integrated stadium companion designed to opt
 2. **Navigate to the project directory**:
    ```bash
    cd venue-flow
-   ```
 
 3. **Install dependencies**:
    ```bash
