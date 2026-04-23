@@ -23,7 +23,6 @@ VenueFlow is a high-performance, AI-integrated stadium companion designed to opt
 1. **Clone the repository**:
    ```bash
    git clone https://github.com/username/venue-flow.git
-   ```
 
 2. **Navigate to the project directory**:
    ```bash
